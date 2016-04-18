@@ -1,2 +1,2 @@
 # appletea
-A collection of REST applets
+A collection of REST applets.
