@@ -29,7 +29,7 @@ def get_forecast(key, latitude, longitude, **kwargs):
       key: Dark Sky API key.
       latitude: geographic latitude coordinates in decimal degrees.
       longitude: geographic longitude coordinated in decimal degrees.
-      kwargs: additional arguments passed to requests.get.
+      kwargs: additional arguments passed as params to requests.get.
 
     Returns:
       A Forecast object with methods for accessing its data.
