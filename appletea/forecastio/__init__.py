@@ -9,3 +9,7 @@ returning (where available):
 
 More information: https://developer.forecast.io
 """
+from api import get_forecast
+
+
+__all__ = ['get_forecast']
