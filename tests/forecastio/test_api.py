@@ -1,5 +1,6 @@
 import requests
 import requests_mock
+import time
 import unittest
 import urllib2
 
@@ -17,6 +18,7 @@ def _urlq(items):
 @requests_mock.Mocker()
 class TestApi(unittest.TestCase):
     def setUp(self):
+        self.baseurl = 'https://api.forecast.io/forecast'
         self.apikey = '238ff8ab86e8245aa668b9d9cf8e8'
         self.latitude = 51.036391
         self.longitude = 3.699794
@@ -39,8 +41,8 @@ class TestApi(unittest.TestCase):
         mock.get(requests_mock.ANY, json={})
         forecastio.get_forecast(self.apikey, self.latitude, self.longitude)
 
-        expected_url = 'https://api.forecast.io/forecast/%s/%s,%s' % (
-            self.apikey, self.latitude, self.longitude)
+        expected_url = '%s/%s/%s,%s' % (self.baseurl, self.apikey,
+            self.latitude, self.longitude)
         url = '%s://%s%s' % (mock.last_request.scheme,
             mock.last_request.netloc, mock.last_request.path)
         self.assertEquals(url, expected_url)
@@ -50,8 +52,8 @@ class TestApi(unittest.TestCase):
         kwargs = {'unit':'si'}
         forecastio.get_forecast(self.apikey, self.latitude, self.longitude, **kwargs)
 
-        expected_url = 'https://api.forecast.io/forecast/%s/%s,%s?%s' % (
-            self.apikey, self.latitude, self.longitude, _urlq(kwargs.items()))
+        expected_url = '%s/%s/%s,%s?%s' % (self.baseurl, self.apikey,
+            self.latitude, self.longitude, _urlq(kwargs.items()))
         url = '%s://%s%s?%s' % (mock.last_request.scheme,
             mock.last_request.netloc, mock.last_request.path,
             mock.last_request.query)
@@ -62,8 +64,8 @@ class TestApi(unittest.TestCase):
         kwargs = {'unit':'si', 'lang':'en'}
         forecastio.get_forecast(self.apikey, self.latitude, self.longitude, **kwargs)
 
-        expected_url = 'https://api.forecast.io/forecast/%s/%s,%s?%s' % (
-            self.apikey, self.latitude, self.longitude, _urlq(kwargs.items()))
+        expected_url = '%s/%s/%s,%s?%s' % (self.baseurl, self.apikey,
+            self.latitude, self.longitude, _urlq(kwargs.items()))
         url = '%s://%s%s?%s' % (mock.last_request.scheme,
             mock.last_request.netloc, mock.last_request.path,
             mock.last_request.query)

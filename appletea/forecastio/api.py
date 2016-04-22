@@ -37,7 +37,8 @@ def get_forecast(key, latitude, longitude, **kwargs):
       or 5xx server error response).
     """
     response = requests.get('https://api.forecast.io/forecast/%s/%s,%s' %
-                            (key, latitude, longitude), params=kwargs)
+                            (key, latitude, longitude), timeout=5,
+                            params=kwargs)
     response.raise_for_status()
 
     json = response.json()
