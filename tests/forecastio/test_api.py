@@ -41,7 +41,6 @@ class TestApi(unittest.TestCase):
         self.assertEquals(e_cm.exception.response.status_code, 503)
 
     def test_get_forecast_sets_correct_connect_timeout(self):
-
         def requests_get_mock(*args, **kwargs):
             self.assertEquals(kwargs.get('timeout'), 5)
             
