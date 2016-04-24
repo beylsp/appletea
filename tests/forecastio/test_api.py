@@ -1,5 +1,8 @@
+import errno
+import mock
 import requests
 import requests_mock
+import socket
 import time
 import unittest
 import urllib2
@@ -15,14 +18,14 @@ def _urlq(items):
     return '&'.join(l)
 
 
-@requests_mock.Mocker()
 class TestApi(unittest.TestCase):
     def setUp(self):
         self.baseurl = 'https://api.forecast.io/forecast'
         self.apikey = '238ff8ab86e8245aa668b9d9cf8e8'
         self.latitude = 51.036391
         self.longitude = 3.699794
-    
+
+    @requests_mock.Mocker()
     def test_get_forecast_raises_client_error_404(self, mock):
         mock.get(requests_mock.ANY, status_code=404, json={})
         with self.assertRaises(requests.HTTPError) as e_cm:
@@ -30,6 +33,7 @@ class TestApi(unittest.TestCase):
 
         self.assertEquals(e_cm.exception.response.status_code, 404)
 
+    @requests_mock.Mocker()
     def test_get_forecast_raises_server_error_503(self, mock):
         mock.get(requests_mock.ANY, status_code=503, json={})
         with self.assertRaises(requests.HTTPError) as e_cm:
@@ -37,6 +41,7 @@ class TestApi(unittest.TestCase):
 
         self.assertEquals(e_cm.exception.response.status_code, 503)
 
+    @requests_mock.Mocker()
     def test_get_forecast_calls_correct_url(self, mock):
         mock.get(requests_mock.ANY, json={})
         forecastio.get_forecast(self.apikey, self.latitude, self.longitude)
@@ -47,6 +52,7 @@ class TestApi(unittest.TestCase):
             mock.last_request.netloc, mock.last_request.path)
         self.assertEquals(url, expected_url)
 
+    @requests_mock.Mocker()
     def test_get_forecast_calls_correct_url_with_argument(self, mock):
         mock.get(requests_mock.ANY, json={})
         kwargs = {'unit':'si'}
@@ -59,6 +65,7 @@ class TestApi(unittest.TestCase):
             mock.last_request.query)
         self.assertEquals(url, expected_url)
 
+    @requests_mock.Mocker()
     def test_get_forecast_calls_correct_url_with_multi_argument(self, mock):
         mock.get(requests_mock.ANY, json={})
         kwargs = {'unit':'si', 'lang':'en'}
@@ -71,6 +78,7 @@ class TestApi(unittest.TestCase):
             mock.last_request.query)
         self.assertEquals(url, expected_url)
 
+    @requests_mock.Mocker()
     def test_get_forecast_returns_object_model(self, mock):
         mock.get(requests_mock.ANY, json={})
         r = forecastio.get_forecast(self.apikey, self.latitude, self.longitude)
