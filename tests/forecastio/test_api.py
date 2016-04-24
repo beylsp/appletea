@@ -5,7 +5,6 @@ import requests_mock
 import socket
 import time
 import unittest
-import urllib2
 
 from appletea import forecastio
 from appletea.forecastio.models import Forecast
@@ -40,6 +39,20 @@ class TestApi(unittest.TestCase):
             forecastio.get_forecast(self.apikey, self.latitude, self.longitude)
 
         self.assertEquals(e_cm.exception.response.status_code, 503)
+
+    def test_get_forecast_sets_correct_connect_timeout(self):
+
+        def requests_get_mock(*args, **kwargs):
+            self.assertEquals(kwargs.get('timeout'), 5)
+            
+            with requests.sessions.Session() as session:
+                from requests.packages import urllib3
+                urllib3.disable_warnings()
+                return requests_mock.create_response(
+                    session.request('GET', args[0]), content={})
+
+        with mock.patch('requests.get', requests_get_mock):
+            forecastio.get_forecast(self.apikey, self.latitude, self.longitude)
 
     @requests_mock.Mocker()
     def test_get_forecast_calls_correct_url(self, mock):
