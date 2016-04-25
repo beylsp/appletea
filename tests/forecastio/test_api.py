@@ -1,9 +1,6 @@
-import errno
 import mock
 import requests
 import requests_mock
-import socket
-import time
 import unittest
 
 from appletea import forecastio
@@ -43,7 +40,7 @@ class TestApi(unittest.TestCase):
     def test_get_forecast_sets_correct_connect_timeout(self):
         def requests_get_mock(*args, **kwargs):
             self.assertEquals(kwargs.get('timeout'), 5)
-            
+
             with requests.sessions.Session() as session:
                 from requests.packages import urllib3
                 urllib3.disable_warnings()
@@ -59,9 +56,9 @@ class TestApi(unittest.TestCase):
         forecastio.get_forecast(self.apikey, self.latitude, self.longitude)
 
         expected_url = '%s/%s/%s,%s' % (self.baseurl, self.apikey,
-            self.latitude, self.longitude)
+                                        self.latitude, self.longitude)
         url = '%s://%s%s' % (mock.last_request.scheme,
-            mock.last_request.netloc, mock.last_request.path)
+                             mock.last_request.netloc, mock.last_request.path)
         self.assertEquals(url, expected_url)
 
     @requests_mock.Mocker()
@@ -71,10 +68,11 @@ class TestApi(unittest.TestCase):
         forecastio.get_forecast(self.apikey, self.latitude, self.longitude, **kwargs)
 
         expected_url = '%s/%s/%s,%s?%s' % (self.baseurl, self.apikey,
-            self.latitude, self.longitude, _urlq(kwargs.items()))
+                                           self.latitude, self.longitude,
+                                           _urlq(kwargs.items()))
         url = '%s://%s%s?%s' % (mock.last_request.scheme,
-            mock.last_request.netloc, mock.last_request.path,
-            mock.last_request.query)
+                                mock.last_request.netloc, mock.last_request.path,
+                                mock.last_request.query)
         self.assertEquals(url, expected_url)
 
     @requests_mock.Mocker()
@@ -84,10 +82,11 @@ class TestApi(unittest.TestCase):
         forecastio.get_forecast(self.apikey, self.latitude, self.longitude, **kwargs)
 
         expected_url = '%s/%s/%s,%s?%s' % (self.baseurl, self.apikey,
-            self.latitude, self.longitude, _urlq(kwargs.items()))
+                                           self.latitude, self.longitude,
+                                           _urlq(kwargs.items()))
         url = '%s://%s%s?%s' % (mock.last_request.scheme,
-            mock.last_request.netloc, mock.last_request.path,
-            mock.last_request.query)
+                                mock.last_request.netloc, mock.last_request.path,
+                                mock.last_request.query)
         self.assertEquals(url, expected_url)
 
     @requests_mock.Mocker()

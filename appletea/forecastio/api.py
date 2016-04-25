@@ -32,8 +32,8 @@ def get_forecast(key, latitude, longitude, **kwargs):
       kwargs: additional arguments passed as params to requests.get.
 
     Returns:
-      A Forecast object with methods for accessing its data. Raises a 
-      request.HTTPError when a bad request is made (a 4xx client error 
+      A Forecast object with methods for accessing its data. Raises a
+      request.HTTPError when a bad request is made (a 4xx client error
       or 5xx server error response).
     """
     response = requests.get('https://api.forecast.io/forecast/%s/%s,%s' %
