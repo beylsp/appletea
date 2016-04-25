@@ -22,7 +22,6 @@ def get_ipinfo(ip='', param='json'):
       param: optional argument can be 'ip', 'hostname', 'city', 'region',
       'country', 'loc', 'org' or 'postal'.
 
-
     Returns:
       An IP information object with methods for accessing its data. Raises a
       request.HTTPError when a bad request is made (a 4xx client error
