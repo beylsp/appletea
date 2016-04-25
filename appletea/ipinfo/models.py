@@ -40,8 +40,7 @@ class IpInfo(object):
     def _data(self, key):
         if key in self.json:
             return self.json[key]
-        raise UndefinedError
-
-
-class UndefinedError(Exception):
-    pass
+        raise ValueError(
+                'Property "%s" not valid' \
+                ' or is not available for this IP address.' % key
+            )
