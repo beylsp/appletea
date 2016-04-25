@@ -7,9 +7,8 @@ import requests
 
 
 class Forecast(object):
-    def __init__(self, data, response, headers):
+    def __init__(self, data, response):
         self.response = response
-        self.http_headers = headers
         self.json = data
 
         self._alerts = []

@@ -42,6 +42,5 @@ def get_forecast(key, latitude, longitude, **kwargs):
     response.raise_for_status()
 
     json = response.json()
-    headers = response.headers
 
-    return Forecast(json, response, headers)
+    return Forecast(json, response)
