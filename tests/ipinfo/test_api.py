@@ -46,8 +46,8 @@ class TestApi(unittest.TestCase):
         ipinfo.get_ipinfo()
 
         expected_url = '%s/json' % self.baseurl
-        url = '%s://%s/%s' % (mock.last_request.scheme,
-                              mock.last_request.netloc, 'json')
+        req = mock.last_request
+        url = '%s://%s/%s' % (req.scheme, req.netloc, 'json')
         self.assertEquals(url, expected_url)
 
     @requests_mock.Mocker()
@@ -57,8 +57,8 @@ class TestApi(unittest.TestCase):
         ipinfo.get_ipinfo(ip=ip_address)
 
         expected_url = '%s/%s/json' % (self.baseurl, ip_address)
-        url = '%s://%s/%s/json' % (mock.last_request.scheme,
-                                   mock.last_request.netloc, ip_address)
+        req = mock.last_request
+        url = '%s://%s/%s/json' % (req.scheme, req.netloc, ip_address)
         self.assertEquals(url, expected_url)
 
     @requests_mock.Mocker()
@@ -68,8 +68,8 @@ class TestApi(unittest.TestCase):
         ipinfo.get_ipinfo(param=parameter)
 
         expected_url = '%s/%s' % (self.baseurl, parameter)
-        url = '%s://%s/%s' % (mock.last_request.scheme,
-                              mock.last_request.netloc, parameter)
+        req = mock.last_request
+        url = '%s://%s/%s' % (req.scheme, req.netloc, parameter)
         self.assertEquals(url, expected_url)
 
     @requests_mock.Mocker()
@@ -80,9 +80,8 @@ class TestApi(unittest.TestCase):
         ipinfo.get_ipinfo(ip=ip_address, param=parameter)
 
         expected_url = '%s/%s/%s' % (self.baseurl, ip_address, parameter)
-        url = '%s://%s/%s/%s' % (mock.last_request.scheme,
-                                 mock.last_request.netloc,
-                                 ip_address, parameter)
+        req = mock.last_request
+        url = '%s://%s/%s/%s' % (req.scheme, req.netloc, ip_address, parameter)
         self.assertEquals(url, expected_url)
 
     @requests_mock.Mocker()
