@@ -7,6 +7,6 @@ install:
 before_script:
   - flake8 .
 script:
-  - nose2 -v --with-coverage
+  - coverage run -m nose2 -v
 after_success:
   - coveralls
