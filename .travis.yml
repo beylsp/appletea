@@ -7,5 +7,5 @@ install:
 before_script:
   - flake8 .
 script:
-  - nose2 -v
+  - nose2 -v --with-coverage
 
