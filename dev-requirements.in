@@ -1,3 +1,5 @@
+coveralls
+flake8
 mock
 nose2
 requests-mock
