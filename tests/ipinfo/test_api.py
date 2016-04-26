@@ -81,7 +81,8 @@ class TestApi(unittest.TestCase):
 
         expected_url = '%s/%s/%s' % (self.baseurl, ip_address, parameter)
         url = '%s://%s/%s/%s' % (mock.last_request.scheme,
-                                 mock.last_request.netloc, ip_address, parameter)
+                                 mock.last_request.netloc,
+                                 ip_address, parameter)
         self.assertEquals(url, expected_url)
 
     @requests_mock.Mocker()

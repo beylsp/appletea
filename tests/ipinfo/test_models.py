@@ -1,6 +1,5 @@
 import unittest
 
-from appletea import ipinfo
 from appletea.ipinfo.models import IpInfo
 
 
@@ -48,6 +47,6 @@ class TestModels(unittest.TestCase):
     def test_get_ipinfo_invalid_field(self):
         with self.assertRaises(ValueError) as e_cm:
             self.ipinfo.undefined
-        
+
         self.assertEqual(e_cm.exception.message, 'Property "undefined" not '
                          'valid or is not available for this IP address.')

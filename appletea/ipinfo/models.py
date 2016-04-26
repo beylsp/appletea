@@ -18,6 +18,6 @@ class IpInfo(object):
             return self.json[name]
         except KeyError:
             raise ValueError(
-                'Property "%s" not valid' \
+                'Property "%s" not valid'
                 ' or is not available for this IP address.' % name
             )

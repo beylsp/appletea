@@ -57,8 +57,8 @@ class TestApi(unittest.TestCase):
 
         expected_url = '%s/%s/%s,%s' % (self.baseurl, self.apikey,
                                         self.latitude, self.longitude)
-        url = '%s://%s%s' % (mock.last_request.scheme,
-                             mock.last_request.netloc, mock.last_request.path)
+        req = mock.last_request
+        url = '%s://%s%s' % (req.scheme, req.netloc, req.path)
         self.assertEquals(url, expected_url)
 
     @requests_mock.Mocker()
@@ -70,9 +70,8 @@ class TestApi(unittest.TestCase):
         expected_url = '%s/%s/%s,%s?%s' % (self.baseurl, self.apikey,
                                            self.latitude, self.longitude,
                                            _urlq(kwargs.items()))
-        url = '%s://%s%s?%s' % (mock.last_request.scheme,
-                                mock.last_request.netloc, mock.last_request.path,
-                                mock.last_request.query)
+        req = mock.last_request
+        url = '%s://%s%s?%s' % (req.scheme, req.netloc, req.path, req.query)
         self.assertEquals(url, expected_url)
 
     @requests_mock.Mocker()
@@ -84,9 +83,8 @@ class TestApi(unittest.TestCase):
         expected_url = '%s/%s/%s,%s?%s' % (self.baseurl, self.apikey,
                                            self.latitude, self.longitude,
                                            _urlq(kwargs.items()))
-        url = '%s://%s%s?%s' % (mock.last_request.scheme,
-                                mock.last_request.netloc, mock.last_request.path,
-                                mock.last_request.query)
+        req = mock.last_request
+        url = '%s://%s%s?%s' % (req.scheme, req.netloc, req.path, req.query)
         self.assertEquals(url, expected_url)
 
     @requests_mock.Mocker()

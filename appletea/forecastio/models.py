@@ -26,8 +26,10 @@ class Forecast(object):
         try:
             if key not in self.json:
                 keys.remove(key)
-                response = requests.get(self.response.url.split('&')[0],
-                    exclude='%s%s' % (','.join(keys), ',alerts,flags')).json()
+                response = requests.get(
+                    self.response.url.split('&')[0],
+                    exclude='%s%s' % (','.join(keys), ',alerts,flags')
+                ).json()
                 self.json[key] = response[key]
 
             if key == 'currently':
@@ -84,13 +86,13 @@ class ForecastioDataPoint(object):
             return self.d[name]
         except KeyError:
             raise ValueError(
-                'Property "%s" not valid' \
+                'Property "%s" not valid'
                 ' or is not available for this forecast.' % name
             )
 
     def __unicode__(self):
-        return '<ForecastioDataPoint instance:' \
-               ' %s at %s>' % (self.summary, self.time)
+        return ('<ForecastioDataPoint instance: '
+                '%s at %s>' % (self.summary, self.time))
 
 
 class Alert(object):
@@ -102,7 +104,7 @@ class Alert(object):
             return self.json[name]
         except KeyError:
             raise ValueError(
-                'Property "%s" not valid' \
+                'Property "%s" not valid'
                 ' or is not available for this forecast.' % name
             )
 

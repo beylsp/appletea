@@ -14,9 +14,9 @@ def get_ipinfo(ip='', param='json'):
     Return an IP information object. You can pass in the IP you are interested
     in, or omit it to get details about your own IP. If you are only interested
     in specific details you can pass param to get a plain text response that
-    includes just the parameter you are after. You can specify 'loc' to get just
-    the geolocation information, which will often be faster than getting the full
-    response.
+    includes just the parameter you are after. You can specify 'loc' to get
+    just the geolocation information, which will often be faster than getting
+    the full response.
 
     Args:
       ip: locally bound IP address if omitted.
@@ -32,7 +32,7 @@ def get_ipinfo(ip='', param='json'):
         urlpart = '%s/%s' % (ip, param)
     else:
         urlpart = param
-    
+
     response = requests.get('http://ipinfo.io/%s' % urlpart, timeout=5)
     response.raise_for_status()
 

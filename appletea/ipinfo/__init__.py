@@ -1,5 +1,5 @@
 """
-The IP Geolocation API allows you to look up IP details. 
+The IP Geolocation API allows you to look up IP details.
 
 
 More information: http://ipinfo.io/developers
