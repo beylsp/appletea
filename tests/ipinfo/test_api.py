@@ -85,8 +85,15 @@ class TestApi(unittest.TestCase):
         self.assertEquals(url, expected_url)
 
     @requests_mock.Mocker()
-    def test_get_ipinfo_returns_object_model(self, mock):
+    def test_get_ipinfo_returns_object_model_for_json(self, mock):
         mock.get(requests_mock.ANY, json={})
         r = ipinfo.get_ipinfo()
+
+        self.assertIsInstance(r, IpInfo)
+
+    @requests_mock.Mocker()
+    def test_get_ipinfo_returns_object_model_for_field(self, mock):
+        mock.get(requests_mock.ANY, text='')
+        r = ipinfo.get_ipinfo(param='region')
 
         self.assertIsInstance(r, IpInfo)

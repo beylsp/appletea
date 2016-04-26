@@ -5,42 +5,19 @@ Data object model for IP information API responses.
 
 
 class IpInfo(object):
-    def __init__(self, data):
-        self.json = data
-
-    @property
-    def ip(self):
-        return self._data('ip')
-
-    @property
-    def city(self):
-        return self._data('city')
-
-    @property
-    def region(self):
-        return self._data('region')
-
-    @property
-    def country(self):
-        return self._data('country')
+    def __init__(self, json):
+        self.json = json
 
     @property
     def loc(self):
-        loc = self._data('loc')
-        return tuple(loc.split(','))
+        location = self.__getattr__('loc')
+        return tuple(location.split(','))
 
-    @property
-    def postal(self):
-        return self._data('postal')
-
-    @property
-    def org(self):
-        return self._data('org')
-
-    def _data(self, key):
-        if key in self.json:
-            return self.json[key]
-        raise ValueError(
+    def __getattr__(self, name):
+        try:
+            return self.json[name]
+        except KeyError:
+            raise ValueError(
                 'Property "%s" not valid' \
-                ' or is not available for this IP address.' % key
+                ' or is not available for this IP address.' % name
             )

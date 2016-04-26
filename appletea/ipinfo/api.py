@@ -2,6 +2,7 @@
 
 A REST client library for ipinfo.io APIs.
 """
+import json
 import requests
 
 from appletea.ipinfo.models import IpInfo
@@ -35,6 +36,9 @@ def get_ipinfo(ip='', param='json'):
     response = requests.get('http://ipinfo.io/%s' % urlpart, timeout=5)
     response.raise_for_status()
 
-    json = response.json()
+    if param == 'json':
+        data = response.json()
+    else:
+        data = json.dumps({param: response.text.strip()})
 
-    return IpInfo(json)
+    return IpInfo(data)
