@@ -55,8 +55,8 @@ class TestApi(unittest.TestCase):
         mock.get(requests_mock.ANY, json={})
         forecastio.get_forecast(self.apikey, self.latitude, self.longitude)
 
-        expected_url = '%s/%s/%s,%s' % (self.baseurl, self.apikey,
-                                        self.latitude, self.longitude)
+        expected_url = '%s/%s/%s,%s' % (
+            self.baseurl, self.apikey, self.latitude, self.longitude)
         req = mock.last_request
         url = '%s://%s%s' % (req.scheme, req.netloc, req.path)
         self.assertEquals(url, expected_url)
@@ -64,12 +64,13 @@ class TestApi(unittest.TestCase):
     @requests_mock.Mocker()
     def test_get_forecast_calls_correct_url_with_argument(self, mock):
         mock.get(requests_mock.ANY, json={})
-        kwargs = {'unit':'si'}
-        forecastio.get_forecast(self.apikey, self.latitude, self.longitude, **kwargs)
+        kwargs = {'unit': 'si'}
+        forecastio.get_forecast(
+            self.apikey, self.latitude, self.longitude, **kwargs)
 
-        expected_url = '%s/%s/%s,%s?%s' % (self.baseurl, self.apikey,
-                                           self.latitude, self.longitude,
-                                           _urlq(kwargs.items()))
+        expected_url = '%s/%s/%s,%s?%s' % (
+            self.baseurl, self.apikey, self.latitude,
+            self.longitude, _urlq(kwargs.items()))
         req = mock.last_request
         url = '%s://%s%s?%s' % (req.scheme, req.netloc, req.path, req.query)
         self.assertEquals(url, expected_url)
@@ -77,12 +78,13 @@ class TestApi(unittest.TestCase):
     @requests_mock.Mocker()
     def test_get_forecast_calls_correct_url_with_multi_argument(self, mock):
         mock.get(requests_mock.ANY, json={})
-        kwargs = {'unit':'si', 'lang':'en'}
-        forecastio.get_forecast(self.apikey, self.latitude, self.longitude, **kwargs)
+        kwargs = {'unit': 'si', 'lang': 'en'}
+        forecastio.get_forecast(
+            self.apikey, self.latitude, self.longitude, **kwargs)
 
-        expected_url = '%s/%s/%s,%s?%s' % (self.baseurl, self.apikey,
-                                           self.latitude, self.longitude,
-                                           _urlq(kwargs.items()))
+        expected_url = '%s/%s/%s,%s?%s' % (
+            self.baseurl, self.apikey, self.latitude,
+            self.longitude, _urlq(kwargs.items()))
         req = mock.last_request
         url = '%s://%s%s?%s' % (req.scheme, req.netloc, req.path, req.query)
         self.assertEquals(url, expected_url)
