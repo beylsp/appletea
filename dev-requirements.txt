@@ -5,13 +5,15 @@
 #    pip-compile --output-file dev-requirements.txt dev-requirements.in
 #
 
-coverage==4.0.3           # via coveralls
+cov-core==1.15.0          # via nose2-cov
+coverage==4.0.3           # via cov-core, coveralls
 coveralls==1.1
 docopt==0.6.2             # via coveralls
 flake8==2.5.4
 funcsigs==1.0.2           # via mock
 mccabe==0.4.0             # via flake8
 mock==2.0.0
+nose2-cov==1.0a4
 nose2==0.6.4
 pbr==1.9.1                # via mock
 pep8==1.7.0               # via flake8
