@@ -8,4 +8,5 @@ before_script:
   - flake8 .
 script:
   - nose2 -v --with-coverage
-
+after_success:
+  - coveralls
