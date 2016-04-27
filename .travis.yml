@@ -7,6 +7,6 @@ install:
 before_script:
   - flake8 .
 script:
-  - coverage run --source=appletea -m nose2 -v --with-coverage
+  - coverage run --source=appletea -m nose2 -v
 after_success:
   - coveralls
