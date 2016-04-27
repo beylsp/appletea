@@ -9,14 +9,14 @@ from appletea.ipinfo.models import IpInfo
 
 
 def get_ipinfo(ip='', param='json'):
-    """Return IP information.
+    """Return IP address location information.
 
-    Return an IP information object. You can pass in the IP you are interested
-    in, or omit it to get details about your own IP. If you are only interested
-    in specific details you can pass param to get a plain text response that
-    includes just the parameter you are after. You can specify 'loc' to get
-    just the geolocation information, which will often be faster than getting
-    the full response.
+    Return an IP address location data object. You can pass in the IP you are
+    interested in, or omit it to get details about your own IP. If you are only
+    interested in specific details you can pass param to get a plain text
+    response that includes just the parameter you are after. You can specify
+    'loc' to get just the geolocation information, which will often be faster
+    than getting the full response.
 
     Args:
       ip: locally bound IP address if omitted.
@@ -24,9 +24,9 @@ def get_ipinfo(ip='', param='json'):
       'country', 'loc', 'org' or 'postal'.
 
     Returns:
-      An IP information object with methods for accessing its data. Raises a
-      request.HTTPError when a bad request is made (a 4xx client error
-      or 5xx server error response).
+      An IP address location object with methods for accessing its data. Raises
+      a request.HTTPError when a bad request is made (a 4xx client error or 5xx
+      server error response).
     """
     if ip:
         urlpart = '%s/%s' % (ip, param)
