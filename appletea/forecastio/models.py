@@ -7,18 +7,53 @@ import requests
 
 
 class Forecast(object):
-    def __init__(self, data, response):
+    """Forecast data object.
+
+    Forecast data can include 'current', 'minute-by-minute', 'hour-by-hour' or
+    'day-by-day' weather information.
+    """
+    def __init__(self, json, response):
         self.response = response
-        self.json = data
+        self.json = json
 
         self._alerts = []
         for alertjson in self.json.get('alerts', []):
             self._alerts.append(Alert(alertjson))
 
     def currently(self):
+        """Return a data point containing the current weather conditions at the
+        requested location.
+
+        Returns:
+          A ForecastioDataPoint object.
+        """
         return self._data('currently')
 
+    def minutely(self):
+        """Return a data block containing the weather conditions
+        minute-by-minute for the next hour.
+
+        Returns:
+          A ForecastioDataBlock object.
+        """
+        return self._data('minutely')
+
+    def hourly(self):
+        """Return a data block containing the weather conditions hour-by-hour
+        for the next two days (or seven days if an extension was requested).
+
+        Returns:
+          A ForecastioDataBlock object.
+        """
+        return self._data('hourly')
+
     def daily(self):
+        """Return a data block containing the weather conditions day-by-day for
+        the next week.
+
+        Returns:
+          A ForecastioDataBlock object.
+        """
         return self._data('daily')
 
     def _data(self, key):

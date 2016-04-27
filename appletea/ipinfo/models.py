@@ -8,7 +8,8 @@ class IpInfo(object):
     """Ip address location object.
 
     IP address location data can include information such as city, region,
-    country, latitude, longitude, organisation or postal/zip code.
+    country, latitude, longitude, organisation or postal/zip code. Its
+    constructor takes JSON-formatted data.
     """
     def __init__(self, json):
         self.json = json
