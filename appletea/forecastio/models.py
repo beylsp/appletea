@@ -79,13 +79,13 @@ class Forecast(object):
         try:
             if key not in self.json:
                 keys.remove(key)
+                args = {'exclude': '%s%s' % (','.join(keys), ',alerts,flags')}
                 response = requests.get(
-                    self.response.url.split('&')[0],
-                    exclude='%s%s' % (','.join(keys), ',alerts,flags'),
-                    timeout=5
-                ).json()
+                    self.response.url.split('&')[0], params=args, timeout=5)
                 response.raise_for_status()
-                self.json[key] = response[key]
+
+                json_data = response.json()
+                self.json[key] = json_data[key]
 
             if key == 'currently':
                 return ForecastioDataPoint(self.json[key])

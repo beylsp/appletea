@@ -35,12 +35,22 @@ class TestModels(unittest.TestCase):
 
 class TestModelsEmptyData(unittest.TestCase):
     def setUp(self):
-        response = requests.Response()
         json_file = osp.join(
             osp.dirname(osp.abspath(__file__)), 'data/test.json')
         with open(json_file) as fp:
             self.json_data = json.loads(fp.read())
-        self.forecast = Forecast('', response)
+        self.forecast = Forecast({}, self.create_response())
+
+    def create_response(self):
+        baseurl = 'https://api2.forecast.io/forecast'
+        apikey = '238ff8ab86e8245aa668b9d9cf8e8'
+        latitude = 51.036391
+        longitude = 3.699794
+
+        response = requests.Response()
+        response.url = '%s/%s/%s,%s' % (
+            baseurl, apikey, latitude, longitude)
+        return response
 
     @requests_mock.Mocker()
     def test_get_currently_forecast_reloads_and_returns_data_point_object(self, mock):
