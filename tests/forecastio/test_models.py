@@ -1,6 +1,7 @@
 import json
 import os.path as osp
 import requests
+import requests_mock
 import unittest
 
 from appletea.forecastio.models import (
@@ -30,3 +31,33 @@ class TestModels(unittest.TestCase):
 
     def test_get_alerts_forecast_returns_alert_object_list(self):
         self.assertIsInstance(self.forecast.alerts, list)
+
+
+class TestModelsEmptyData(unittest.TestCase):
+    def setUp(self):
+        response = requests.Response()
+        json_file = osp.join(
+            osp.dirname(osp.abspath(__file__)), 'data/test.json')
+        with open(json_file) as fp:
+            self.json_data = json.loads(fp.read())
+        self.forecast = Forecast('', response)
+
+    @requests_mock.Mocker()
+    def test_get_currently_forecast_reloads_and_returns_data_point_object(self, mock):
+        mock.get(requests_mock.ANY, json=self.json_data)
+        self.assertIsInstance(self.forecast.currently, ForecastioDataPoint)
+
+    @requests_mock.Mocker()
+    def test_get_minutely_forecast_reloads_and_returns_data_block_object(self, mock):
+        mock.get(requests_mock.ANY, json=self.json_data)
+        self.assertIsInstance(self.forecast.minutely, ForecastioDataBlock)
+
+    @requests_mock.Mocker()
+    def test_get_hourly_forecast_reloads_and_returns_data_block_object(self, mock):
+        mock.get(requests_mock.ANY, json=self.json_data)
+        self.assertIsInstance(self.forecast.hourly, ForecastioDataBlock)
+
+    @requests_mock.Mocker()
+    def test_get_daily_forecast_reloads_and_returns_data_block_object(self, mock):
+        mock.get(requests_mock.ANY, json=self.json_data)
+        self.assertIsInstance(self.forecast.daily, ForecastioDataBlock)
