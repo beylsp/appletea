@@ -5,7 +5,7 @@ install:
   # Build/test dependencies
   - pip install -r dev-requirements.txt
 before_script:
-  - flake8 .
+  - flake8 appletea
 script:
   - coverage run --source=appletea -m nose2 -v
 after_success:
