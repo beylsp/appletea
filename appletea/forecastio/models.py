@@ -300,6 +300,11 @@ class Alert(object):
     def __init__(self, json):
         self.json = json
 
+    @property
+    def expires(self):
+        expires = self.json['expires']
+        return datetime.datetime.utcfromtimestamp(int(expires))
+
     def __getattr__(self, name):
         try:
             return self.json[name]
@@ -313,4 +318,4 @@ class Alert(object):
         return unicode(self).encode('utf-8')
 
     def __unicode__(self):
-        return '<Alert instance: %s at %s>' % (self.title, self.time)
+        return '<Alert instance: %s at %s>' % (self.title, self.expires)
