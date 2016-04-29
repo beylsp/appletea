@@ -2,9 +2,10 @@
 
 Data object model for IP information API responses.
 """
+from appletea.utils import UnicodeMixin
 
 
-class IpInfo(object):
+class IpInfo(UnicodeMixin):
     """Ip address location object.
 
     IP address location data can include information such as city, region,
@@ -33,3 +34,6 @@ class IpInfo(object):
                 'Property "%s" not valid'
                 ' or is not available for this IP address.' % name
             )
+
+    def __unicode__(self):
+        return '<IpInfo instance: %s>' % self.ip

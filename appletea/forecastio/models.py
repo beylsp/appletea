@@ -5,8 +5,10 @@ Data object model for Forecast API responses.
 import datetime
 import requests
 
+from appletea.utils import UnicodeMixin
 
-class Forecast(object):
+
+class Forecast(UnicodeMixin):
     """Forecast data object.
 
     Forecast data can include 'current', 'minute-by-minute', 'hour-by-hour' or
@@ -98,7 +100,7 @@ class Forecast(object):
                 return ForecastioDataBlock()
 
 
-class ForecastioDataBlock(object):
+class ForecastioDataBlock(UnicodeMixin):
     """ForecastioDataBlock object.
 
     A data block object represents the various weather phenomena occurring over
@@ -136,7 +138,7 @@ class ForecastioDataBlock(object):
                                                       len(self.data)))
 
 
-class ForecastioDataPoint(object):
+class ForecastioDataPoint(UnicodeMixin):
     """ForecastioDataPoint object.
 
     A data point object contains various properties, each representing a
@@ -284,7 +286,7 @@ class ForecastioDataPoint(object):
                 '%s at %s>' % (self.summary, self.time))
 
 
-class Alert(object):
+class Alert(UnicodeMixin):
     """Alert data object.
 
     An alert data object represents a severe weather warning issued for the
