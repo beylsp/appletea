@@ -1,0 +1,3 @@
+[run]
+source = appletea
+omit = appletea/utils.py

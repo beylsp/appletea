@@ -1,12 +1,13 @@
 language: python
 python:
   - "2.7"
+  - "3.0"
 install:
   # Build/test dependencies
   - pip install -r dev-requirements.txt
 before_script:
   - flake8 appletea
 script:
-  - coverage run --source=appletea -m nose2 -v
+  - coverage run -m nose2 -v
 after_success:
   - coveralls
