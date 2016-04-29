@@ -1,3 +1,4 @@
+import datetime
 import json
 import os.path as osp
 import requests
@@ -23,14 +24,59 @@ class TestModels(unittest.TestCase):
     def test_get_minutely_forecast_returns_data_block_object(self):
         self.assertIsInstance(self.forecast.minutely, ForecastioDataBlock)
 
+    def test_get_minutely_forecast_returns_data_block_object_with_data(self):
+        data = self.forecast.minutely.data
+        self.assertTrue(all(isinstance(d, ForecastioDataPoint) for d in data))
+
     def test_get_hourly_forecast_returns_data_block_object(self):
         self.assertIsInstance(self.forecast.hourly, ForecastioDataBlock)
+
+    def test_get_hourly_forecast_returns_data_block_object_with_data(self):
+        data = self.forecast.hourly.data
+        self.assertTrue(all(isinstance(d, ForecastioDataPoint) for d in data))
 
     def test_get_daily_forecast_returns_data_block_object(self):
         self.assertIsInstance(self.forecast.daily, ForecastioDataBlock)
 
+    def test_get_daily_forecast_returns_data_block_object_with_data(self):
+        data = self.forecast.daily.data
+        self.assertTrue(all(isinstance(d, ForecastioDataPoint) for d in data))
+
     def test_get_alerts_forecast_returns_alert_object_list(self):
         self.assertIsInstance(self.forecast.alerts, list)
+
+    def test_get_currently_forecast_returns_printable_data_point_object(self):
+        d = self.json_data['currently']
+        time = datetime.datetime.utcfromtimestamp(int(d['time']))
+        summary = d['summary']
+        expected_str = '<ForecastioDataPoint instance: %s at %s>' % (
+            summary, time)
+        self.assertEqual(str(self.forecast.currently), expected_str)
+
+    def test_get_minutely_forecast_returns_printable_data_block_object(self):
+        d = self.json_data['minutely']
+        summary = d['summary']
+        length = len(d['data'])
+        expected_str = '<ForecastioDataBlock instance: %s with %d' \
+                       ' ForecastioDataPoints>' % (summary, length)
+        self.assertEqual(str(self.forecast.minutely), expected_str)
+
+    def test_get_currently_forecast_returns_accessible_data_point_object(self):
+        temperature = self.json_data['currently']['temperature']
+        self.assertEqual(self.forecast.currently.temperature, temperature)
+
+    def test_get_minutely_forecast_returns_accessible_data_block_object(self):
+        data = self.json_data['minutely']['data']
+        self.assertEqual(len(self.forecast.minutely.data), len(data))
+
+    def test_get_hourly_forecast_returns_accessible_data_block_object(self):
+        data = self.json_data['hourly']['data']
+        self.assertEqual(len(self.forecast.hourly.data), len(data))
+
+    def test_get_daily_forecast_returns_accessible_data_block_object(self):
+        data = self.json_data['daily']['data']
+        
+        self.assertEqual(len(self.forecast.daily.data), len(data))
 
 
 class TestModelsEmptyData(unittest.TestCase):
