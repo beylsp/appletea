@@ -129,9 +129,6 @@ class ForecastioDataBlock(UnicodeMixin):
         self.data = [ForecastioDataPoint(datapoint)
                      for datapoint in d.get('data', [])]
 
-    def __str__(self):
-        return unicode(self).encode('utf-8')
-
     def __unicode__(self):
         return ('<ForecastioDataBlock instance: '
                 '%s with %d ForecastioDataPoints>' % (self.summary,
@@ -278,9 +275,6 @@ class ForecastioDataPoint(UnicodeMixin):
                 ' or is not available for this forecast.' % name
             )
 
-    def __str__(self):
-        return unicode(self).encode('utf-8')
-
     def __unicode__(self):
         return ('<ForecastioDataPoint instance: '
                 '%s at %s>' % (self.summary, self.time))
@@ -315,9 +309,6 @@ class Alert(UnicodeMixin):
                 'Property "%s" not valid'
                 ' or is not available for this forecast.' % name
             )
-
-    def __str__(self):
-        return unicode(self).encode('utf-8')
 
     def __unicode__(self):
         return '<Alert instance: %s at %s>' % (self.title, self.expires)
