@@ -71,3 +71,23 @@ class TestModelsEmptyData(unittest.TestCase):
     def test_get_daily_forecast_reloads_and_returns_data_block_object(self, mock):
         mock.get(requests_mock.ANY, json=self.json_data)
         self.assertIsInstance(self.forecast.daily, ForecastioDataBlock)
+
+    @requests_mock.Mocker()
+    def test_get_currently_forecast_reloads_empty_and_returns_data_point_object(self, mock):
+        mock.get(requests_mock.ANY, json={})
+        self.assertIsInstance(self.forecast.currently, ForecastioDataPoint)
+
+    @requests_mock.Mocker()
+    def test_get_minutely_forecast_reloads_empty_and_returns_data_block_object(self, mock):
+        mock.get(requests_mock.ANY, json={})
+        self.assertIsInstance(self.forecast.minutely, ForecastioDataBlock)
+
+    @requests_mock.Mocker()
+    def test_get_hourly_forecast_reloads_empty_and_returns_data_block_object(self, mock):
+        mock.get(requests_mock.ANY, json={})
+        self.assertIsInstance(self.forecast.hourly, ForecastioDataBlock)
+
+    @requests_mock.Mocker()
+    def test_get_daily_forecast_reloads_empty_and_returns_data_block_object(self, mock):
+        mock.get(requests_mock.ANY, json={})
+        self.assertIsInstance(self.forecast.daily, ForecastioDataBlock)
