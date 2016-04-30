@@ -57,7 +57,7 @@ class TestModels(unittest.TestCase):
     def test_get_alerts_forecast_returns_alert_object_with_invalid_data_property(self):
         with self.assertRaises(ValueError) as e_cm:
             self.forecast.alerts[0].undefined
-        self.assertEqual(e_cm.exception.message, 'Property "undefined" not '
+        self.assertEqual(str(e_cm.exception), 'Property "undefined" not '
                          'valid or is not available for this forecast.')
 
     def test_get_alerts_forecast_returns_printable_object(self):
@@ -107,7 +107,7 @@ class TestModels(unittest.TestCase):
     def test_get_daily_forecast_returns_data_block_object_with_invalid_data_property(self):
         with self.assertRaises(ValueError) as e_cm:
             self.forecast.daily.data[0].undefined
-        self.assertEqual(e_cm.exception.message, 'Property "undefined" not '
+        self.assertEqual(str(e_cm.exception), 'Property "undefined" not '
                          'valid or is not available for this forecast.')
 
 

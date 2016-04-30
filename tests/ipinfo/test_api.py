@@ -35,7 +35,7 @@ class TestApi(unittest.TestCase):
                 from requests.packages import urllib3
                 urllib3.disable_warnings()
                 return requests_mock.create_response(
-                    session.request('GET', args[0]), content={})
+                    session.request('GET', args[0]), json={})
 
         with mock.patch('requests.get', requests_get_mock):
             ipinfo.get_ipinfo()

@@ -44,7 +44,7 @@ class TestModels(unittest.TestCase):
         with self.assertRaises(ValueError) as e_cm:
             self.ipinfo.undefined
 
-        self.assertEqual(e_cm.exception.message, 'Property "undefined" not '
+        self.assertEqual(str(e_cm.exception), 'Property "undefined" not '
                          'valid or is not available for this IP address.')
 
     def test_get_ipinfo_returns_printable_object(self):

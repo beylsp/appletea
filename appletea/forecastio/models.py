@@ -298,6 +298,11 @@ class Alert(UnicodeMixin):
 
     @property
     def expires(self):
+        """Return time at which the alert will cease to be valid.
+
+        Returns:
+          UNIX time (that is, seconds since midnight GMT on 1 Jan 1970).
+        """
         expires = self.json['expires']
         return datetime.datetime.utcfromtimestamp(int(expires))
 
