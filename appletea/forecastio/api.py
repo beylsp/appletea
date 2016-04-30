@@ -4,6 +4,7 @@ A REST client library for forecast.io APIs.
 """
 import requests
 
+from collections import OrderedDict as odict
 from appletea.forecastio.models import Forecast
 
 
@@ -38,7 +39,7 @@ def get_forecast(key, latitude, longitude, **kwargs):
     """
     response = requests.get('https://api.forecast.io/forecast/%s/%s,%s' %
                             (key, latitude, longitude), timeout=5,
-                            params=kwargs)
+                            params=odict(kwargs))
     response.raise_for_status()
 
     json = response.json()

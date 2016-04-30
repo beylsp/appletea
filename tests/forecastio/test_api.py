@@ -3,6 +3,7 @@ import requests
 import requests_mock
 import unittest
 
+from collections import OrderedDict as odict
 from appletea import forecastio
 from appletea.forecastio.models import Forecast
 
@@ -78,7 +79,7 @@ class TestApi(unittest.TestCase):
     @requests_mock.Mocker()
     def test_get_forecast_calls_correct_url_with_multi_argument(self, mock):
         mock.get(requests_mock.ANY, json={})
-        kwargs = {'unit': 'si', 'lang': 'en'}
+        kwargs = odict({'unit': 'si', 'lang': 'en'})
         forecastio.get_forecast(
             self.apikey, self.latitude, self.longitude, **kwargs)
 
