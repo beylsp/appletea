@@ -19,13 +19,15 @@ def get_ipinfo(ip='', param='json'):
     than getting the full response.
 
     Args:
-      ip: locally bound IP address if omitted.
-      param: optional argument can be 'ip', 'hostname', 'city', 'region',
-      'country', 'loc', 'org' or 'postal'.
+      - ip: locally bound IP address if omitted.
+      - param: optional argument can be 'ip', 'hostname', 'city', 'region',
+        'country', 'loc', 'org' or 'postal'.
 
     Returns:
-      An IP address location object with methods for accessing its data. Raises
-      a request.HTTPError when a bad request is made (a 4xx client error or 5xx
+      An IP address location object with methods for accessing its data.
+
+    Raises:
+      A request.HTTPError when a bad request is made (a 4xx client error or 5xx
       server error response).
     """
     if ip:
