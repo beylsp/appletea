@@ -14,3 +14,5 @@ pyflakes          # via flake8
 requests-mock
 requests          # via coveralls, requests-mock
 six               # via mock, nose2, requests-mock
+sphinx
+sphinx-rtd-theme
