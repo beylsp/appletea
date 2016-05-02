@@ -13,7 +13,7 @@ class TestModels(unittest.TestCase):
     def setUp(self):
         response = requests.Response()
         json_file = osp.join(
-            osp.dirname(osp.abspath(__file__)), 'data/test.json')
+            osp.dirname(osp.abspath(__file__)), 'data/forecast.json')
         with open(json_file) as fp:
             self.json_data = json.loads(fp.read())
         self.forecast = Forecast(self.json_data, response)
@@ -114,7 +114,7 @@ class TestModels(unittest.TestCase):
 class TestModelsEmptyData(unittest.TestCase):
     def setUp(self):
         json_file = osp.join(
-            osp.dirname(osp.abspath(__file__)), 'data/test.json')
+            osp.dirname(osp.abspath(__file__)), 'data/forecast.json')
         with open(json_file) as fp:
             self.json_data = json.loads(fp.read())
         self.forecast = Forecast({}, self.create_response())

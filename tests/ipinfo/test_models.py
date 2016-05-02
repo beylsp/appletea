@@ -8,7 +8,7 @@ from appletea.ipinfo.models import IpInfo
 class TestModels(unittest.TestCase):
     def setUp(self):
         json_file = osp.join(
-            osp.dirname(osp.abspath(__file__)), 'data/test.json')
+            osp.dirname(osp.abspath(__file__)), 'data/ipinfo.json')
         with open(json_file) as fp:
             self.json_data = json.loads(fp.read())
         self.ipinfo = IpInfo(self.json_data)
