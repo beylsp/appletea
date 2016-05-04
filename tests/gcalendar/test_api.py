@@ -76,4 +76,3 @@ class TestApi(unittest.TestCase):
             gcalendar.get_events(
                 self.credentials, maxAttendees=5, timeMax='2011-06-03T10:00:00Z',
                 timeMin='2011-06-03T10:00:00Z', singleEvents=True)
-            
