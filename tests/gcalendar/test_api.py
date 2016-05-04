@@ -2,11 +2,11 @@ import apiclient
 import mock
 import os.path as osp
 import unittest
-import urlparse
 
 from appletea import gcalendar
 from appletea.gcalendar.models import GCalendarEvents
 from collections import OrderedDict as odict
+from six.moves import urllib
 
 
 class TestApi(unittest.TestCase):
@@ -34,8 +34,8 @@ class TestApi(unittest.TestCase):
 
     def test_get_events_calls_correct_url(self):
         def request_execute_mock(request, **kwargs):
-            urlres = urlparse.urlparse(request.uri)
-            qs = urlparse.parse_qs(urlres.query)
+            urlres = urllib.parse.urlparse(request.uri)
+            qs = urllib.parse.parse_qs(urlres.query)
             expected_qs = {u'alt': [u'json'], u'orderBy': [u'startTime']}
 
             self.assertDictEqual(qs, expected_qs)
@@ -47,8 +47,8 @@ class TestApi(unittest.TestCase):
 
     def test_get_events_calls_correct_url_with_orderBy(self):
         def request_execute_mock(request, **kwargs):
-            urlres = urlparse.urlparse(request.uri)
-            qs = urlparse.parse_qs(urlres.query)
+            urlres = urllib.parse.urlparse(request.uri)
+            qs = urllib.parse.parse_qs(urlres.query)
             expected_qs = {u'alt': [u'json'], u'orderBy': [u'updated']}
 
             self.assertDictEqual(qs, expected_qs)
@@ -60,8 +60,8 @@ class TestApi(unittest.TestCase):
 
     def test_get_events_calls_correct_url_with_multi_argument(self):
         def request_execute_mock(request, **kwargs):
-            urlres = urlparse.urlparse(request.uri)
-            qs = urlparse.parse_qs(urlres.query)
+            urlres = urllib.parse.urlparse(request.uri)
+            qs = urllib.parse.parse_qs(urlres.query)
             expected_qs = {u'orderBy': [u'startTime'],
                            u'timeMin': [u'2011-06-03T10:00:00Z'],
                            u'timeMax': [u'2011-06-03T10:00:00Z'],
