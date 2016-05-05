@@ -21,7 +21,7 @@ class GEventData(UnicodeMixin):
             if isinstance(v, dict):
                 return GEventData(v, name)
             elif isinstance(v, list):
-                return map(lambda x: GEventData(x, name), v)
+                return [GEventData(x, name) for x in v]
             else:
                 return v
         except KeyError:
