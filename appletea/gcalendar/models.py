@@ -27,9 +27,9 @@ class GEventData(UnicodeMixin):
         except KeyError:
             raise ValueError(
                 'Property "%s" not valid or is not available for event'
-                ' %s.' % (name, 
-                         'item "%s"' % self.supitem if self.supitem else 'item')
-            )
+                ' %s.' % (
+                    name,
+                    'item "%s"' % self.supitem if self.supitem else 'item'))
 
     def __unicode__(self):
         return ('<GEventData instance: %s>' % self.supitem)
