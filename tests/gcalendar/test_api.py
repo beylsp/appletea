@@ -4,6 +4,7 @@ import os.path as osp
 import unittest
 
 from appletea import gcalendar
+from appletea.exceptions import HTTPError
 from appletea.gcalendar.models import GCalendarEvents
 from collections import OrderedDict as odict
 from six.moves import urllib
@@ -21,6 +22,68 @@ class TestApi(unittest.TestCase):
             osp.dirname(osp.abspath(__file__)),
             'data/application-default-credentials.json')
         return self._readf(credentials)
+
+    def _error(self, errcode, errmsg):
+        errjson = {}
+        errjson.update({"errors": [{"domain": "calendar", "reason": "errorReason"}]})
+        errjson.update({"code": errcode})
+        errjson.update({"message": errmsg})
+        return {"error": errjson}
+
+    def test_get_events_raises_client_error_400(self):
+        def request_execute_mock(request, **kwargs):
+            return self._error(400, 'Bad Request')
+
+        with mock.patch('apiclient.http.HttpRequest.execute',
+                        request_execute_mock):
+            with self.assertRaises(HTTPError) as e_cm:
+                events = gcalendar.get_events(self.credentials)
+
+        self.assertEquals(e_cm.exception.message, '400 Client Error: Bad Request')
+
+    def test_get_events_raises_client_error_401(self):
+        def request_execute_mock(request, **kwargs):
+            return self._error(401, 'Invalid Credentials')
+
+        with mock.patch('apiclient.http.HttpRequest.execute',
+                        request_execute_mock):
+            with self.assertRaises(HTTPError) as e_cm:
+                events = gcalendar.get_events(self.credentials)
+
+        self.assertEquals(e_cm.exception.message, '401 Client Error: Invalid Credentials')
+
+    def test_get_events_raises_client_error_403(self):
+        def request_execute_mock(request, **kwargs):
+            return self._error(403, 'Daily Limit Exceeded')
+
+        with mock.patch('apiclient.http.HttpRequest.execute',
+                        request_execute_mock):
+            with self.assertRaises(HTTPError) as e_cm:
+                events = gcalendar.get_events(self.credentials)
+
+        self.assertEquals(e_cm.exception.message, '403 Client Error: Daily Limit Exceeded')
+
+    def test_get_events_raises_client_error_500(self):
+        def request_execute_mock(request, **kwargs):
+            return self._error(500, 'Backend Error')
+
+        with mock.patch('apiclient.http.HttpRequest.execute',
+                        request_execute_mock):
+            with self.assertRaises(HTTPError) as e_cm:
+                events = gcalendar.get_events(self.credentials)
+
+        self.assertEquals(e_cm.exception.message, '500 Server Error: Backend Error')
+
+    def test_get_events_raises_client_error_undefined(self):
+        def request_execute_mock(request, **kwargs):
+            return self._error(800, '')
+
+        with mock.patch('apiclient.http.HttpRequest.execute',
+                        request_execute_mock):
+            with self.assertRaises(HTTPError) as e_cm:
+                events = gcalendar.get_events(self.credentials)
+
+        self.assertEquals(e_cm.exception.message, 'Undefined Error')
 
     def test_get_events_return_object_model(self):
         def request_execute_mock(request, **kwargs):
