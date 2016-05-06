@@ -39,7 +39,7 @@ class TestApi(unittest.TestCase):
             with self.assertRaises(HTTPError) as e_cm:
                 events = gcalendar.get_events(self.credentials)
 
-        self.assertEquals(e_cm.exception.message, '400 Client Error: Bad Request')
+        self.assertEquals(str(e_cm.exception), '400 Client Error: Bad Request')
 
     def test_get_events_raises_client_error_401(self):
         def request_execute_mock(request, **kwargs):
@@ -50,7 +50,7 @@ class TestApi(unittest.TestCase):
             with self.assertRaises(HTTPError) as e_cm:
                 events = gcalendar.get_events(self.credentials)
 
-        self.assertEquals(e_cm.exception.message, '401 Client Error: Invalid Credentials')
+        self.assertEquals(str(e_cm.exception), '401 Client Error: Invalid Credentials')
 
     def test_get_events_raises_client_error_403(self):
         def request_execute_mock(request, **kwargs):
@@ -61,7 +61,7 @@ class TestApi(unittest.TestCase):
             with self.assertRaises(HTTPError) as e_cm:
                 events = gcalendar.get_events(self.credentials)
 
-        self.assertEquals(e_cm.exception.message, '403 Client Error: Daily Limit Exceeded')
+        self.assertEquals(str(e_cm.exception), '403 Client Error: Daily Limit Exceeded')
 
     def test_get_events_raises_client_error_500(self):
         def request_execute_mock(request, **kwargs):
@@ -72,7 +72,7 @@ class TestApi(unittest.TestCase):
             with self.assertRaises(HTTPError) as e_cm:
                 events = gcalendar.get_events(self.credentials)
 
-        self.assertEquals(e_cm.exception.message, '500 Server Error: Backend Error')
+        self.assertEquals(str(e_cm.exception), '500 Server Error: Backend Error')
 
     def test_get_events_raises_client_error_undefined(self):
         def request_execute_mock(request, **kwargs):
@@ -83,7 +83,7 @@ class TestApi(unittest.TestCase):
             with self.assertRaises(HTTPError) as e_cm:
                 events = gcalendar.get_events(self.credentials)
 
-        self.assertEquals(e_cm.exception.message, 'Undefined Error')
+        self.assertEquals(str(e_cm.exception), 'Undefined Error')
 
     def test_get_events_return_object_model(self):
         def request_execute_mock(request, **kwargs):
