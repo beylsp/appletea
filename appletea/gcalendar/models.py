@@ -1,8 +1,16 @@
+"""Google Calendar Events object model.
+
+Events object model for Google Calendar API responses.
+"""
 from appletea.utils import UnicodeMixin
 from appletea.exceptions import HTTPError
 
 
 class GCalendarEvents(UnicodeMixin):
+    """GCalendarEvents data object.
+
+    Google Calendar Events data object includes a list of events information.
+    """
     def __init__(self, json):
         self._raise_for_status(json.get('error', ''))
         self.json = json
@@ -27,6 +35,13 @@ class GCalendarEvents(UnicodeMixin):
 
 
 class GEventData(UnicodeMixin):
+    """GEventData data object.
+
+    An event data object represents an Event Resource on a particular calendar.
+    Such objects contain various properties. More information can be found at:
+
+    https://developers.google.com/google-apps/calendar/v3/reference/events#resource-representations
+    """
     def __init__(self, d={}, supitem=''):
         self.supitem = supitem
         self.d = d
