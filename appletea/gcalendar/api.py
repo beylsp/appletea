@@ -3,7 +3,6 @@
 A REST client library for google calendar APIs.
 """
 import apiclient as api
-import httplib2
 import oauth2client as oauth2
 
 from appletea.gcalendar.models import GCalendarEvents
