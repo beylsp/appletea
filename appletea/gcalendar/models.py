@@ -2,8 +2,8 @@
 
 Events object model for Google Calendar API responses.
 """
-from appletea.utils import UnicodeMixin
 from appletea.exceptions import HTTPError
+from appletea.utils import UnicodeMixin
 
 
 class GCalendarEvents(UnicodeMixin):

@@ -73,6 +73,6 @@ def get_events(credentials, calendarId='primary', **kwargs):
 
     kwargs.setdefault('orderBy', 'startTime')
     request = service.events().list(calendarId=calendarId, **kwargs)
-    eventsResult = request.execute(http=http)
+    result = request.execute(http=http)
 
-    return GCalendarEvents(eventsResult)
+    return GCalendarEvents(result)
