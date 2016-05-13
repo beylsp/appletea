@@ -68,11 +68,9 @@ def get_events(credentials, calendarId='primary', **kwargs):
       An HTTPError when a bad request is made.
     """
     credentials = oauth2.client.OAuth2Credentials.from_json(credentials)
-    http = credentials.authorize(httplib2.Http())
-    service = api.discovery.build('calendar', 'v3', http=http)
+    service = api.discovery.build('calendar', 'v3', credentials=credentials)
 
     kwargs.setdefault('orderBy', 'startTime')
-    request = service.events().list(calendarId=calendarId, **kwargs)
-    result = request.execute(http=http)
+    result = service.events().list(calendarId=calendarId, **kwargs).execute()
 
     return GCalendarEvents(result)
